@@ -58,12 +58,15 @@ def create_app():
     @app.route('/', defaults={'path': ''})
     @app.route('/<path:path>')
     def serve_spa(path):
-        # Check if this is an API route
+        # Check if this is an API route or uploads
         if path.startswith('api/') or path.startswith('uploads/'):
             return jsonify({"error": "Not found"}), 404
         
-        # Check if the requested file exists in the client build directory
-        client_build_dir = os.path.join(os.getcwd(), '..', 'client', 'dist')
+        # Get the absolute path to the client build directory
+        current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        client_build_dir = os.path.join(current_dir, '..', 'client', 'dist')
+        client_build_dir = os.path.abspath(client_build_dir)
+        
         if os.path.exists(client_build_dir):
             # Check if it's a static file
             if path and os.path.exists(os.path.join(client_build_dir, path)):
@@ -72,7 +75,11 @@ def create_app():
             return send_from_directory(client_build_dir, 'index.html')
         else:
             # If build directory doesn't exist, return a helpful message for development
-            return jsonify({"message": "JobHive Flask API is running! Access API routes at /api/... | For frontend, run the client development server."}), 200
+            return jsonify({
+                "message": "JobHive Flask API is running! Access API routes at /api/...", 
+                "note": f"Client build directory not found at: {client_build_dir}",
+                "instruction": "Run 'npm run build' in the client directory to build the React app"
+            }), 200
 
     return app
 
