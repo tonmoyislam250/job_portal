@@ -6,7 +6,7 @@
   "scripts": {
     "check": "tsc",
     "dev": "cd client && vite",
-    "build": "cd client && vite build && vite preview",
+    "build": "cd client && vite build",
     "preview": "cd client && vite preview"
   },
   "dependencies": {
