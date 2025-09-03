@@ -6,11 +6,8 @@
   "scripts": {
     "check": "tsc",
     "dev": "cd client && vite",
-    "build": "cd client && vite build",
-    "build:preview": "cd client && vite build && vite preview",
-    "preview": "cd client && vite preview",
-    "start:server": "cd server && python run.py",
-    "start": "npm run build && npm run start:server"
+    "build": "cd client && vite build && vite preview",
+    "preview": "cd client && vite preview"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
