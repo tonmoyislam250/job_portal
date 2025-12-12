@@ -1,5 +1,4 @@
 import os
-from turtle import title
 import requests
 from flask import Blueprint, request, jsonify
 from .models import User
