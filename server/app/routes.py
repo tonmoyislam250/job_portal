@@ -238,7 +238,6 @@ def login():
 # pending_users = {}
 
 @main.route("/send-verification-code", methods=["POST"])
-@cross_origin(origin="http://localhost:5173", supports_credentials=True)
 def send_verification_code():
     from datetime import datetime, timedelta, timezone
     data = request.get_json()
